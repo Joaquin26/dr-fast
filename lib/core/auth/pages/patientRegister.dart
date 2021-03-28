@@ -28,7 +28,7 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
               width: 230.0,
               height: 230.0,
               child: Image.asset(
-                'img/doctorFast_logo.png',
+                'assets/img/doctorFast_logo.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -43,50 +43,57 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'img/auth_background.jpg',
+                  'assets/img/auth_background.jpg',
                 ),
                 fit: BoxFit.fill,
               ),
             ),
-            child: Column(children: <Widget>[
-              header,
-              Padding(
-                  padding: const EdgeInsets.only(left: 0, right: 150),
-                  child: Text(
-                    'Crear cuenta - Paciente',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        color: Color(0xff1994f7),
-                        letterSpacing: 1.2),
-                  )),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      left: inputLeftPadding, right: inputRightPadding),
-                  child: _buildInputTextField(usernameController, "Nombre")),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      left: inputLeftPadding, right: inputRightPadding),
-                  child: _buildInputTextField(lastNameController, "Apellidos")),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      left: inputLeftPadding, right: inputRightPadding),
-                  child: _buildInputTextField(
-                      phoneController, "Número telefónico")),
-              Padding(
-                  padding: const EdgeInsets.only(
-                      left: inputLeftPadding, right: inputRightPadding),
-                  child: _buildInputTextField(
-                      emailController, "Correo electrónico")),
-              SizedBox(height: 20.0),
-              _buildRegisterButton(),
-              const Divider(
-                  height: 20,
-                  thickness: 5,
-                  indent: 170,
-                  endIndent: 170,
-                  color: Color(0xffb7eda91)),
-            ])));
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  header,
+                  Padding(
+                      padding: const EdgeInsets.only(left: 32, right: 0),
+                      child: Text(
+                        'Crear cuenta - Paciente',
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            color: Color(0xff1994f7),
+                            letterSpacing: 1.2),
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          left: inputLeftPadding, right: inputRightPadding),
+                      child:
+                          _buildInputTextField(usernameController, "Nombre")),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          left: inputLeftPadding, right: inputRightPadding),
+                      child: _buildInputTextField(
+                          lastNameController, "Apellidos")),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          left: inputLeftPadding, right: inputRightPadding),
+                      child: _buildInputTextField(
+                          phoneController, "Número telefónico")),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          left: inputLeftPadding, right: inputRightPadding),
+                      child: _buildInputTextField(
+                          emailController, "Correo electrónico")),
+                  SizedBox(height: 20.0),
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          left: inputLeftPadding + 85),
+                      child: _buildRegisterButton()),
+                  const Divider(
+                      height: 20,
+                      thickness: 5,
+                      indent: 170,
+                      endIndent: 170,
+                      color: Color(0xffb7eda91)),
+                ])));
   }
 
   TextField _buildInputTextField(

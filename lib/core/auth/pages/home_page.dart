@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
               width: 230.0,
               height: 230.0,
               child: Image.asset(
-                'img/doctorFast_logo.png',
+                'assets/img/doctorFast_logo.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'img/auth_background.jpg',
+                  'assets/img/auth_background.jpg',
                 ),
                 fit: BoxFit.fill,
               ),
@@ -62,8 +62,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => UserModePage(option: "login")));
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (context, __, ___) =>
+                      UserModePage(option: "login")));
+          // MaterialPageRoute(
+          //     builder: (context) => UserModePage(option: "login")));
         },
       );
 
@@ -83,8 +88,9 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {
           Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => UserModePage(option: "register")));
+              PageRouteBuilder(
+                  pageBuilder: (context, __, ___) =>
+                      UserModePage(option: "register")));
         },
       );
 }

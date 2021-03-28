@@ -1,3 +1,4 @@
+import 'package:dr_fast/core/home/pages/homePatient_page.dart';
 import 'package:flutter/material.dart';
 
 import 'core/auth/pages/home_page.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         HomePage.route: (context) => HomePage(),
         UserModePage.route: (context) => UserModePage(),
         PatientRegisterPage.route: (context) => PatientRegisterPage(),
-        LoginPage.route: (context) => LoginPage()
+        LoginPage.route: (context) => LoginPage(),
+        HomePatientPage.route: (context) => HomePatientPage(),
       },
       debugShowCheckedModeBanner: false,
     );

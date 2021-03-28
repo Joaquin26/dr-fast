@@ -1,3 +1,4 @@
+import 'package:dr_fast/core/home/pages/homePatient_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
               width: 230.0,
               height: 230.0,
               child: Image.asset(
-                'img/doctorFast_logo.png',
+                'assets/img/doctorFast_logo.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'img/auth_background.jpg',
+                  'assets/img/auth_background.jpg',
                 ),
                 fit: BoxFit.fill,
               ),
@@ -151,6 +152,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         onPressed: () async {
+          Navigator.push(
+              context,
+              PageRouteBuilder(
+                  pageBuilder: (context, __, ___) =>
+                      HomePatientPage()));
           var username = usernameController.text.trim();
           var password = passwordController.text.trim();
         },

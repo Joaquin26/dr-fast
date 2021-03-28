@@ -30,7 +30,7 @@ class _UserModePageState extends State<UserModePage> {
               width: 230.0,
               height: 230.0,
               child: Image.asset(
-                'img/doctorFast_logo.png',
+                'assets/img/doctorFast_logo.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -44,7 +44,7 @@ class _UserModePageState extends State<UserModePage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'img/auth_background.jpg',
+                  'assets/img/auth_background.jpg',
                 ),
                 fit: BoxFit.fill,
               ),
@@ -83,11 +83,15 @@ class _UserModePageState extends State<UserModePage> {
         ),
         onPressed: () {
           if (option == "login")
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => LoginPage()));
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, __, ___) => LoginPage()));
           else
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => PatientRegisterPage()));
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, __, ___) => PatientRegisterPage()));
         },
       );
 
@@ -104,7 +108,10 @@ class _UserModePageState extends State<UserModePage> {
         ),
         onPressed: () {
           if (option == "login")
-            Navigator.of(context).pushNamed(LoginPage.route);
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, __, ___) => LoginPage()));
         },
       );
 }
