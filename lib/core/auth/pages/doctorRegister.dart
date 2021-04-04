@@ -1,16 +1,18 @@
+import 'package:dr_fast/utils/service/auth/doctor/auth_doctor_service.dart';
 import 'package:dr_fast/utils/service/auth/patient/auth_patient_service.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
-class PatientRegisterPage extends StatefulWidget {
-  static const String route = '/patient-register';
+class DoctorRegisterPage extends StatefulWidget {
+  static const String route = '/doctor-register';
 
   @override
-  _PatientRegisterState createState() => _PatientRegisterState();
+  _DoctorRegisterState createState() => _DoctorRegisterState();
 }
 
-class _PatientRegisterState extends State<PatientRegisterPage> {
+class _DoctorRegisterState extends State<DoctorRegisterPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -21,6 +23,10 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
   TextEditingController dniController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController specialtyController = TextEditingController();
+  TextEditingController tuitonNumberController = TextEditingController();
+  TextEditingController laborCenterController = TextEditingController();
+  TextEditingController tariffController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +71,7 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
                       Padding(
                           padding: const EdgeInsets.only(left: 32, right: 0),
                           child: Text(
-                            'Crear cuenta - Paciente',
+                            'Crear cuenta - Doctor',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontSize: 16.0,
@@ -95,8 +101,7 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
                       Padding(
                           padding: const EdgeInsets.only(
                               left: inputLeftPadding, right: inputRightPadding),
-                          child: _buildInputTextField(
-                              dniController, "DNI", false)),
+                          child: _buildInputNumberField(dniController, "DNI")),
                       Padding(
                           padding: const EdgeInsets.only(
                               left: inputLeftPadding, right: inputRightPadding),
@@ -136,6 +141,26 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
                               left: inputLeftPadding, right: inputRightPadding),
                           child: _buildInputTextField(
                               directionController, "Dirección", false)),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: inputLeftPadding, right: inputRightPadding),
+                          child: _buildInputTextField(
+                              specialtyController, "Especialidad", false)),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: inputLeftPadding, right: inputRightPadding),
+                          child: _buildInputNumberField(
+                              tuitonNumberController, "Número de colegiatura")),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: inputLeftPadding, right: inputRightPadding),
+                          child: _buildInputTextField(
+                              laborCenterController, "Centro de labor", false)),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: inputLeftPadding, right: inputRightPadding),
+                          child: _buildInputNumberField(
+                              tariffController, "Tarifa")),
                       SizedBox(height: 20.0),
                       Padding(
                           padding: const EdgeInsets.only(
@@ -169,6 +194,28 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
         onChanged: (value) {},
       );
 
+  TextField _buildInputNumberField(
+          TextEditingController controller, String hintText) =>
+      TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(fontSize: 16.0, color: Colors.white),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff1994f7)),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff1994f7)),
+          ),
+        ),
+        keyboardType: TextInputType.number,
+        style: TextStyle(fontSize: 16.0, color: Colors.white),
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
+        onChanged: (value) {},
+      );
+
   ElevatedButton _buildRegisterButton() => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xffb7eda91), // background
@@ -193,8 +240,12 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
             var district = districtController.text;
             var direction = directionController.text;
             var surnames = lastName.split(" ");
+            var specialty = specialtyController.text;
+            var tuitonNumber = tuitonNumberController.text;
+            var laborCenter = laborCenterController.text;
+            var tariff = tariffController.text;
 
-            await AuthPatientService.register(
+            await AuthDoctorService.register(
                 username,
                 password,
                 name,
@@ -205,7 +256,11 @@ class _PatientRegisterState extends State<PatientRegisterPage> {
                 phone,
                 birthday,
                 district,
-                direction);
+                direction,
+                specialty,
+                tuitonNumber,
+                laborCenter,
+                tariff);
 
             showSuccessAlert(context);
           } catch (e) {

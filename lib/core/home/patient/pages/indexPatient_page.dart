@@ -1,16 +1,17 @@
-import 'package:dr_fast/core/auth/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
-class HomePatientPage extends StatefulWidget {
-  static const String route = '/home-patient';
+import 'home_page.dart';
+
+class IndexPatientPage extends StatefulWidget {
+  static const String route = '/index-patient';
 
   @override
-  _HomePatientPageState createState() => _HomePatientPageState();
+  _IndexPatientPageState createState() => _IndexPatientPageState();
 }
 
-class _HomePatientPageState extends State<HomePatientPage> {
-  var pages = [LoginPage()];
+class _IndexPatientPageState extends State<IndexPatientPage> {
+  var pages = [HomePatientPage()];
   var currentIndex;
   var currentPage;
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -25,26 +26,14 @@ class _HomePatientPageState extends State<HomePatientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-          decoration: new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage(
-                'assets/img/auth_background.jpg',
-              ),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Column(children: <Widget>[
-            SizedBox(height: 20.0),
-            SizedBox(height: 30.0),
-          ])),
+      body: currentPage,
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
   CurvedNavigationBar buildBottomNavigationBar() {
     Color iconsColor = Colors.white;
-    Color primaryColor = Colors.red;
+    Color primaryColor = Color(0xff1386fc);
 
     return CurvedNavigationBar(
       key: _bottomNavigationKey,
@@ -54,11 +43,15 @@ class _HomePatientPageState extends State<HomePatientPage> {
       animationDuration: Duration(milliseconds: 300),
       items: <Widget>[
         Icon(
-          Icons.share,
+          Icons.home,
           color: iconsColor,
         ),
         Icon(
-          Icons.book,
+          Icons.calendar_today,
+          color: iconsColor,
+        ),
+        Icon(
+          Icons.paste_rounded,
           color: iconsColor,
         ),
         Icon(

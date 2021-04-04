@@ -1,3 +1,4 @@
+import 'package:dr_fast/core/auth/pages/doctorRegister.dart';
 import 'package:dr_fast/core/auth/pages/patientRegister.dart';
 import 'package:flutter/material.dart';
 
@@ -86,7 +87,7 @@ class _UserModePageState extends State<UserModePage> {
             Navigator.push(
                 context,
                 PageRouteBuilder(
-                    pageBuilder: (context, __, ___) => LoginPage()));
+                    pageBuilder: (context, __, ___) => LoginPage(option: "Patient")));
           else
             Navigator.push(
                 context,
@@ -111,7 +112,12 @@ class _UserModePageState extends State<UserModePage> {
             Navigator.push(
                 context,
                 PageRouteBuilder(
-                    pageBuilder: (context, __, ___) => LoginPage()));
+                    pageBuilder: (context, __, ___) => LoginPage(option: "Doctor")));
+          else
+            Navigator.push(
+                context,
+                PageRouteBuilder(
+                    pageBuilder: (context, __, ___) => DoctorRegisterPage()));
         },
       );
 }

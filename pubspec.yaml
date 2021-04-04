@@ -24,6 +24,10 @@ dependencies:
   flutter:
     sdk: flutter
   curved_navigation_bar: ^0.3.7
+  http: ^0.12.1
+  datetime_picker_formfield: ^2.0.0
+  intl: ^0.17.0
+  select_form_field: "^2.0.0"
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +53,16 @@ flutter:
   assets:
     - assets/img/doctorFast_logo.png
     - assets/img/auth_background.jpg
+    - assets/img/specialty.png
+    - assets/img/symptom.png
+    - assets/img/symptom-1.png
+    - assets/img/symptom-2.png
+    - assets/img/symptom-3.png
+    - assets/img/symptom-4.png
+    - assets/img/symptom-5.png
+    - assets/img/symptom-6.png
+    - assets/img/doctor.png
+    - assets/img/symptom-1.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

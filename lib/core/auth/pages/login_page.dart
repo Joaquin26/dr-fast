@@ -1,17 +1,25 @@
-import 'package:dr_fast/core/home/pages/homePatient_page.dart';
+import 'package:dr_fast/core/home/patient/pages/indexPatient_page.dart';
+import 'package:dr_fast/utils/service/auth/doctor/auth_doctor_service.dart';
+import 'package:dr_fast/utils/service/auth/patient/auth_patient_service.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   static const String route = '/login';
+  final String option;
+
+  LoginPage({this.option});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState(option: this.option);
 }
 
 class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String usernameErrorText;
+
+  String option;
+  _LoginPageState({this.option});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: _buildPasswordTextField(),
               ),
               SizedBox(height: 20.0),
-              _buildLoginButton(),
+              _buildLoginButton(option),
               SizedBox(height: 60.0),
               GestureDetector(
                   child: Text(
@@ -140,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
 
-  ElevatedButton _buildLoginButton() => ElevatedButton(
+  ElevatedButton _buildLoginButton(String option) => ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Color(0xffb7eda91), // background
         ),
@@ -152,13 +160,25 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         onPressed: () async {
-          Navigator.push(
-              context,
-              PageRouteBuilder(
-                  pageBuilder: (context, __, ___) =>
-                      HomePatientPage()));
           var username = usernameController.text.trim();
           var password = passwordController.text.trim();
+          try {
+            if (option == "Patient") {
+              await AuthPatientService.login(username, password);
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                      pageBuilder: (context, __, ___) => IndexPatientPage()));
+            } else {
+              await AuthDoctorService.login(username, password);
+            }
+          } catch (e) {
+            showSnackBar(context, 'Hubo un error al iniciar sesión');
+          }
         },
       );
+
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
 }
