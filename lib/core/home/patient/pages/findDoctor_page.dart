@@ -1,6 +1,7 @@
 import 'package:dr_fast/widgets/rating_star.dart';
 import 'package:flutter/material.dart';
-import 'package:select_form_field/select_form_field.dart';
+
+import 'doctor_detail_page.dart';
 
 class FindDoctorPage extends StatefulWidget {
   static const String route = '/find-doctor';
@@ -56,12 +57,13 @@ class _FindDoctorPageState extends State<FindDoctorPage> {
             Expanded(
                 flex: 3,
                 child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 10),
                     child: ListView.separated(
                         itemBuilder: (BuildContext context, int index) {
                           return Container(
                               margin: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
+                                  vertical: 0, horizontal: 5),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
@@ -106,6 +108,7 @@ class _FindDoctorPageState extends State<FindDoctorPage> {
                                               ),
                                             ),
                                           ),
+                                          SizedBox(width: 30),
                                           Expanded(
                                             flex: 3,
                                             child: Padding(
@@ -166,39 +169,25 @@ class _FindDoctorPageState extends State<FindDoctorPage> {
                                               ),
                                             ),
                                           ),
-                                          const Icon(
-                                            Icons.more_vert,
-                                            size: 16.0,
-                                          ),
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.0),
+                                              child: IconButton(
+                                                  icon: const Icon(
+                                                    Icons
+                                                        .calendar_today_rounded,
+                                                    size: 24.0,
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        PageRouteBuilder(
+                                                            pageBuilder: (context,
+                                                                    __, ___) =>
+                                                                DetailPage()));
+                                                  })),
                                         ],
                                       ))));
-                          // )ListTile(
-                          //                               contentPadding: EdgeInsets.all(0),
-                          //                               leading: ClipRRect(
-                          //                                 borderRadius:
-                          //                                     BorderRadius.all(Radius.circular(13)),
-                          //                                 child: Container(
-                          //                                   height: 55,
-                          //                                   width: 55,
-                          //                                   decoration: BoxDecoration(
-                          //                                     borderRadius: BorderRadius.circular(15),
-                          //                                   ),
-                          //                                   child: Image.asset(
-                          //                                     "assets/img/doctor.png",
-                          //                                     height: 50,
-                          //                                     width: 50,
-                          //                                     fit: BoxFit.contain,
-                          //                                   ),
-                          //                                 ),
-                          //                               ),
-                          //                               title: Text(doctors[index]),
-                          //                               subtitle: Text("Neurology"),
-                          //                               trailing: Icon(
-                          //                                 Icons.keyboard_arrow_right,
-                          //                                 size: 30,
-                          //                                 color: Theme.of(context).primaryColor,
-                          //                               ),
-                          //                             ),
                         },
                         separatorBuilder: (BuildContext context, int index) =>
                             const Divider(),

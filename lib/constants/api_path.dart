@@ -1,1 +1,1 @@
-const String BASE_URL = 'https://demodoctorfast.herokuapp.com';
+const String BASE_URL = 'http://doctorfast-backend.herokuapp.com';

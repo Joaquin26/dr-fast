@@ -1,51 +1,24 @@
 import 'dart:convert';
 import 'package:dr_fast/constants/api_path.dart';
+import 'package:dr_fast/core/auth/models/patient_register_dto.dart';
 import 'package:http/http.dart' as http;
+
+import '../auth_shared_preferences.dart';
 
 class AuthPatientService {
   AuthPatientService();
 
-  static Future<String> register(
-      String username,
-      String password,
-      String name,
-      String lastName,
-      String motherLastName,
-      String dni,
-      String email,
-      String phone,
-      String birthday,
-      String district,
-      String direction) async {
-    var response = await http.post(
-      '$BASE_URL/usuario/registroPaciente',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: json.encode(
-        {
-          'usuario': {
-            'nombreUsuario': username,
-            'password': password,
-            'name': name,
-            'apellidoPaterno': lastName,
-            'apellidoMaterno': motherLastName,
-            'dni': dni,
-            'correo': email,
-            'celular': phone,
-            'birthday': birthday,
-            'distrito': district,
-            'direccion': direction
-          },
+  static Future<String> register(PatientRegisterDTO data) async {
+    var response = await http.post('$BASE_URL/usuario/registroPaciente',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
-      ),
-    );
+        body: json.encode(data.toJson()));
 
     if (response.statusCode != 200) {
       throw Exception();
     }
-
     return response.body;
   }
 
@@ -62,6 +35,9 @@ class AuthPatientService {
     if (response.statusCode != 200) {
       throw Exception();
     }
+
+    final Map parsed = json.decode(response.body);
+    await AuthSharedPreferences.saveUserToken(parsed['token']);
 
     return response.body;
   }

@@ -17,13 +17,13 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String usernameErrorText;
+  final _formKey = GlobalKey<FormState>();
 
   String option;
   _LoginPageState({this.option});
 
   @override
   Widget build(BuildContext context) {
-    const inputHorizontalPadding = 100.0;
     var header = Stack(children: <Widget>[
       Container(
         width: double.infinity,
@@ -49,35 +49,14 @@ class _LoginPageState extends State<LoginPage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'assets/img/auth_background.jpg',
+                  'assets/img/auth_background.jpeg',
                 ),
                 fit: BoxFit.fill,
               ),
             ),
             child: Column(children: <Widget>[
               header,
-              Text(
-                'USUARIO',
-                style: TextStyle(
-                    fontSize: 16.0, color: Colors.white, letterSpacing: 1.2),
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: inputHorizontalPadding),
-                  child: _buildUsernameTextField()),
-              SizedBox(height: 20.0),
-              Text(
-                'PASSWORD',
-                style: TextStyle(
-                    fontSize: 16.0, color: Colors.white, letterSpacing: 1.2),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: inputHorizontalPadding),
-                child: _buildPasswordTextField(),
-              ),
-              SizedBox(height: 20.0),
-              _buildLoginButton(option),
+              _formLogin(),
               SizedBox(height: 60.0),
               GestureDetector(
                   child: Text(
@@ -95,47 +74,101 @@ class _LoginPageState extends State<LoginPage> {
             ])));
   }
 
-  TextField _buildUsernameTextField() => TextField(
-        controller: usernameController,
-        decoration: InputDecoration(
-          fillColor: Color(0xff5475b2),
-          filled: true,
-          contentPadding: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-          errorText: usernameErrorText,
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff5475b2)),
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(50.0),
-            ),
+  Form _formLogin() {
+    const inputHorizontalPadding = 100.0;
+    return Form(
+        key: _formKey,
+        child: Column(children: <Widget>[
+          Text(
+            'USUARIO',
+            style: TextStyle(
+                fontSize: 16.0, color: Colors.white, letterSpacing: 1.2),
           ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff5475b2)),
-            borderRadius: const BorderRadius.all(
-              const Radius.circular(50.0),
-            ),
+          Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: inputHorizontalPadding),
+              child: _buildUsernameTextField(emailValidator)),
+          SizedBox(height: 20.0),
+          Text(
+            'PASSWORD',
+            style: TextStyle(
+                fontSize: 16.0, color: Colors.white, letterSpacing: 1.2),
           ),
-        ),
-        style: TextStyle(
-          fontSize: 16.0,
-          color: Colors.white,
-        ),
-        onChanged: (value) {},
-      );
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: inputHorizontalPadding),
+            child: _buildPasswordTextField(passwordValidator),
+          ),
+          SizedBox(height: 20.0),
+          _buildLoginButton(option),
+        ]));
+  }
 
-  TextField _buildPasswordTextField() => TextField(
+  TextFormField _buildUsernameTextField(Function validator) => TextFormField(
+      controller: usernameController,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      decoration: InputDecoration(
+        fillColor: Color(0xff454545),
+        filled: true,
+        contentPadding: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xff454545)),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(50.0),
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xff454545)),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(50.0),
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xff454545)),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(50.0),
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xff454545)),
+          borderRadius: const BorderRadius.all(
+            const Radius.circular(50.0),
+          ),
+        ),
+      ),
+      style: TextStyle(
+        fontSize: 16.0,
+        color: Colors.white,
+      ),
+      validator: validator);
+
+  TextFormField _buildPasswordTextField(Function validator) => TextFormField(
         controller: passwordController,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-          fillColor: Color(0xff5475b2),
+          fillColor: Color(0xff454545),
           filled: true,
           contentPadding: new EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff5475b2)),
+            borderSide: BorderSide(color: Color(0xff454545)),
             borderRadius: const BorderRadius.all(
               const Radius.circular(50.0),
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xff5475b2)),
+            borderSide: BorderSide(color: Color(0xff454545)),
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(50.0),
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff454545)),
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(50.0),
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xff454545)),
             borderRadius: const BorderRadius.all(
               const Radius.circular(50.0),
             ),
@@ -160,9 +193,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         onPressed: () async {
-          var username = usernameController.text.trim();
-          var password = passwordController.text.trim();
           try {
+            if (!_formKey.currentState.validate()) return;
+            var username = usernameController.text.trim();
+            var password = passwordController.text.trim();
+
             if (option == "Patient") {
               await AuthPatientService.login(username, password);
               Navigator.push(
@@ -180,5 +215,23 @@ class _LoginPageState extends State<LoginPage> {
 
   void showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  }
+
+  //Validators
+  String emailValidator(String value) {
+    if (value.isEmpty) return "Este campo es requerido";
+
+    RegExp regExp = RegExp(r"^.*@.*$", multiLine: false);
+    if (!regExp.hasMatch(value)) return "Debe llevar el @";
+    return null;
+  }
+
+  String passwordValidator(String value) {
+    if (value.isEmpty) return "Este campo es requerido";
+
+    RegExp regExp = RegExp(r"^[a-zA-Z0-9]{1,10}$", multiLine: false);
+    if (!regExp.hasMatch(value))
+      return "Debe ser menor a 10 caracteres alfanuméricos";
+    return null;
   }
 }

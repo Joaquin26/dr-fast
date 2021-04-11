@@ -1,4 +1,6 @@
 import 'package:dr_fast/core/auth/pages/userMode_pages.dart';
+import 'package:dr_fast/core/home/patient/pages/indexPatient_page.dart';
+import 'package:dr_fast/utils/service/auth/auth_shared_preferences.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,6 +13,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    redirectIfUserLoggedIn();
+    
     var header = Stack(children: <Widget>[
       Container(
         width: double.infinity,
@@ -36,7 +40,7 @@ class _HomePageState extends State<HomePage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'assets/img/auth_background.jpg',
+                  'assets/img/auth_background.jpeg',
                 ),
                 fit: BoxFit.fill,
               ),
@@ -93,4 +97,13 @@ class _HomePageState extends State<HomePage> {
                       UserModePage(option: "register")));
         },
       );
+
+  Future redirectIfUserLoggedIn() async {
+    var token = await AuthSharedPreferences.getUserToken();
+    if (token == null) return;
+    Navigator.push(
+        context,
+        PageRouteBuilder(
+            pageBuilder: (context, __, ___) => IndexPatientPage()));
+  }
 }

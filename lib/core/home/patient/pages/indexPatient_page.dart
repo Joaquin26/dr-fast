@@ -1,3 +1,5 @@
+import 'package:dr_fast/core/medical_appointments/pages/medical_appointments_page.dart';
+import 'package:dr_fast/core/record/pages/record_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -11,7 +13,7 @@ class IndexPatientPage extends StatefulWidget {
 }
 
 class _IndexPatientPageState extends State<IndexPatientPage> {
-  var pages = [HomePatientPage()];
+  var pages = [HomePatientPage(), MedicalAppointmentPage(), RecordPage()];
   var currentIndex;
   var currentPage;
   GlobalKey _bottomNavigationKey = GlobalKey();
@@ -61,10 +63,10 @@ class _IndexPatientPageState extends State<IndexPatientPage> {
       ],
       index: currentIndex,
       onTap: (int index) {
-        // setState(() {
-        //   currentIndex = index;
-        //   currentPage = pages[currentIndex];
-        // });
+        setState(() {
+          currentIndex = index;
+          currentPage = pages[currentIndex];
+        });
       },
     );
   }

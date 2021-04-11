@@ -45,7 +45,7 @@ class _UserModePageState extends State<UserModePage> {
             decoration: new BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(
-                  'assets/img/auth_background.jpg',
+                  'assets/img/auth_background.jpeg',
                 ),
                 fit: BoxFit.fill,
               ),
